@@ -9,7 +9,7 @@ st.set_page_config(page_title="Tech Relevance AI", layout="wide")
 st.title(" Tech Relevance AI")
 
 # Resume Upload
-st.header("📄 Upload Your Resume")
+st.header("📄 Upload Your Resume/LinkedIn Profile")
 uploaded_file = st.file_uploader("Choose your resume file", type=["pdf", "txt", "docx"])
 if uploaded_file:
     files = {"file": uploaded_file.getvalue()}
