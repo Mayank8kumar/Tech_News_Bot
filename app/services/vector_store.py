@@ -20,3 +20,14 @@ def create_resume_vector_store(text: str):
         for file in os.listdir("app/faiss_index"):
             os.remove(f"app/faiss_index/{file}")
     vector_store.save_local("app/faiss_index")
+
+
+def load_resume_text():
+    from langchain_community.vectorstores import FAISS
+    from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    db = FAISS.load_local("app/faiss_index", embeddings, allow_dangerous_deserialization=True)
+    docs = db.similarity_search("summary of my background", k=10)
+    return " ".join([doc.page_content for doc in docs])
+
