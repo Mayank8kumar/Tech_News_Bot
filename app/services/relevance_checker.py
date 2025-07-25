@@ -8,7 +8,7 @@ def get_relevant_news(news_articles):
     """
     # Load stored resume vector index
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    resume_vector = FAISS.load_local("app/faiss_index", embeddings)
+    resume_vector = FAISS.load_local("app/faiss_index", embeddings, allow_dangerous_deserialization=True)
 
     relevance_scores = []
     for article in news_articles:
