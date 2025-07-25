@@ -1,0 +1,29 @@
+# Byte-compiled / cache
+__pycache__/
+__pycache__
+*.py[cod]
+
+# Logs
+logs/
+
+# Environment
+.env
+.venv/
+env/
+env
+
+# IDE configs
+.vscode/
+*.swp
+
+# # Jupyter
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+
+# File
+notebook
+
