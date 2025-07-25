@@ -6,7 +6,11 @@ load_dotenv()
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
-def fetch_latest_tech_news(country="in", page_size=10):
+def fetch_tech_news(country="in", page_size=10):
+    """
+    Fetch latest tech news headlines from NewsAPI.
+    Returns simplified list of articles with essential metadata.
+    """
     url = (
         f"https://newsapi.org/v2/top-headlines?"
         f"category=technology&"
@@ -17,7 +21,23 @@ def fetch_latest_tech_news(country="in", page_size=10):
 
     response = requests.get(url)
     if response.status_code != 200:
-        raise Exception(f"News API error: {response.status_code}")
+        raise Exception(f"News API error: {response.status_code} - {response.text}")
 
     data = response.json()
-    return data["articles"]
+    # print("We got the data............")
+    if data.get("status") != "ok":
+        raise Exception("Failed to fetch news")
+
+    # Simplify and return useful parts
+    simplified_articles = []
+    # print("Extracting the relevant data.........")
+    for article in data.get("articles", []):
+        simplified_articles.append({
+            "title": article.get("title"),
+            "description": article.get("description"),
+            "url": article.get("url"),
+            "source": article.get("source", {}).get("name"),
+            "publishedAt": article.get("publishedAt")
+        })
+
+    return simplified_articles
